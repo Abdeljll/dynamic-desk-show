@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { Github, Database, MessageSquare, ShoppingBag, FileCheck, MapPin, Calendar, Globe } from "lucide-react";
 
-const projects = [
+const initialProjects = [
   {
     id: 0,
     title: "Personal Portfolio Website V1",
@@ -98,7 +99,14 @@ const projects = [
   }
 ];
 
-export const Projects = () => {
+interface ProjectsProps {
+  isAdmin?: boolean;
+  adminProjects?: any[];
+  onProjectsUpdate?: (projects: any[]) => void;
+}
+
+export const Projects = ({ isAdmin = false, adminProjects, onProjectsUpdate }: ProjectsProps = {}) => {
+  const [projects] = useState(adminProjects || initialProjects);
   const handleViewCode = (projectId: number) => {
     if (projectId === 0) {
       // Personal Portfolio Website V1

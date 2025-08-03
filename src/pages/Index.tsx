@@ -14,26 +14,50 @@ import { supabase } from "@/integrations/supabase/client";
 const Index = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminProjects, setAdminProjects] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if user is already logged in
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        setIsAdmin(true);
+    console.log("Index component mounted");
+    
+    const initializeAuth = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        // Check if user is already logged in
+        console.log("Checking auth session...");
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        
+        if (sessionError) {
+          console.error("Session error:", sessionError);
+          setError(`Auth error: ${sessionError.message}`);
+        } else {
+          console.log("Session status:", session ? "authenticated" : "not authenticated");
+          setIsAdmin(!!session);
+        }
+      } catch (err) {
+        console.error("Auth initialization error:", err);
+        setError(`Initialization error: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      } finally {
+        setIsLoading(false);
       }
     };
     
-    checkAuth();
+    initializeAuth();
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log("Auth state changed:", event, session ? "authenticated" : "not authenticated");
         setIsAdmin(!!session);
       }
     );
 
-    return () => subscription.unsubscribe();
+    return () => {
+      console.log("Cleaning up auth subscription");
+      subscription.unsubscribe();
+    };
   }, []);
 
   const handleProjectsUpdate = (projects: any[]) => {
@@ -51,6 +75,37 @@ const Index = () => {
       }
     }
   }, [isAdmin]);
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center max-w-md">
+          <div className="text-red-500 mb-4">⚠️</div>
+          <h1 className="text-xl font-semibold mb-2">Something went wrong</h1>
+          <p className="text-muted-foreground mb-4">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+          >
+            Reload Page
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">

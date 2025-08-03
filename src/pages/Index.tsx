@@ -127,13 +127,7 @@ const Index = () => {
         onAdminLogin={setIsAdmin} 
         isAdmin={isAdmin}
       />
-      {isAdmin && (
-        <AdminPanel
-          isAdmin={isAdmin}
-          projects={adminProjects.length > 0 ? adminProjects : []}
-          onProjectsUpdate={handleProjectsUpdate}
-        />
-      )}
+      {isAdmin && <AdminPanel isAdmin={isAdmin} />}
     </div>
   );
 };

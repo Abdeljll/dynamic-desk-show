@@ -14,7 +14,233 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      education: {
+        Row: {
+          created_at: string
+          degree: string
+          id: string
+          institution: string
+          location: string
+          period: string
+          sort_order: number | null
+          specializations: string[]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          degree: string
+          id?: string
+          institution: string
+          location: string
+          period: string
+          sort_order?: number | null
+          specializations?: string[]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          degree?: string
+          id?: string
+          institution?: string
+          location?: string
+          period?: string
+          sort_order?: number | null
+          specializations?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      experiences: {
+        Row: {
+          color: string
+          company: string
+          created_at: string
+          description: string
+          icon_name: string
+          id: string
+          location: string
+          period: string
+          responsibilities: string[]
+          skills: string[]
+          sort_order: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          color: string
+          company: string
+          created_at?: string
+          description: string
+          icon_name: string
+          id?: string
+          location: string
+          period: string
+          responsibilities?: string[]
+          skills?: string[]
+          sort_order?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string
+          company?: string
+          created_at?: string
+          description?: string
+          icon_name?: string
+          id?: string
+          location?: string
+          period?: string
+          responsibilities?: string[]
+          skills?: string[]
+          sort_order?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          code_url: string | null
+          color: string
+          created_at: string
+          description: string
+          features: string[]
+          icon_name: string
+          id: string
+          live_url: string | null
+          location: string
+          period: string
+          sort_order: number | null
+          technologies: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          code_url?: string | null
+          color: string
+          created_at?: string
+          description: string
+          features?: string[]
+          icon_name: string
+          id?: string
+          live_url?: string | null
+          location: string
+          period: string
+          sort_order?: number | null
+          technologies?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          code_url?: string | null
+          color?: string
+          created_at?: string
+          description?: string
+          features?: string[]
+          icon_name?: string
+          id?: string
+          live_url?: string | null
+          location?: string
+          period?: string
+          sort_order?: number | null
+          technologies?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      settings: {
+        Row: {
+          created_at: string
+          id: string
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          key: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      skill_categories: {
+        Row: {
+          color: string
+          created_at: string
+          icon_name: string
+          id: string
+          sort_order: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          icon_name: string
+          id?: string
+          sort_order?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon_name?: string
+          id?: string
+          sort_order?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      skills: {
+        Row: {
+          category_id: string
+          created_at: string
+          id: string
+          level: number
+          name: string
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          category_id: string
+          created_at?: string
+          id?: string
+          level: number
+          name: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string
+          created_at?: string
+          id?: string
+          level?: number
+          name?: string
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "skills_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "skill_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

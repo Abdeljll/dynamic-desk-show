@@ -223,8 +223,8 @@ export const Contact = () => {
                 Contact Information
               </h3>
               
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => {
+                  <div className="space-y-4">
+                    {contactInfo.map((info, index) => {
                   const colors = getColorClasses(info.color);
                   const Icon = info.icon;
                   

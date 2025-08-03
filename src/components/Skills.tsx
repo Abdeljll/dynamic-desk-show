@@ -1,89 +1,54 @@
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code, Database, Server, Shield, Cpu, GitBranch, Palette, Zap } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
-const skillCategories = [
-  {
-    title: "Frontend Development",
-    icon: Code,
-    color: "primary",
-    skills: [
-      { name: "React", level: 90 },
-      { name: "TypeScript", level: 85 },
-      { name: "JavaScript", level: 90 },
-      { name: "HTML/CSS", level: 95 },
-      { name: "Tailwind CSS", level: 85 },
-      { name: "Next.js", level: 80 }
-    ]
-  },
-  {
-    title: "Backend Development",
-    icon: Server,
-    color: "secondary", 
-    skills: [
-      { name: "Node.js", level: 85 },
-      { name: "Java", level: 90 },
-      { name: "Python", level: 80 },
-      { name: "C/C++", level: 85 },
-      { name: "PHP", level: 75 },
-      { name: "RESTful APIs", level: 85 }
-    ]
-  },
-  {
-    title: "Database & Cloud",
-    icon: Database,
-    color: "accent",
-    skills: [
-      { name: "PostgreSQL", level: 85 },
-      { name: "MongoDB", level: 80 },
-      { name: "Firebase", level: 85 },
-      { name: "Google Cloud", level: 75 },
-      { name: "Docker", level: 80 },
-      { name: "NoSQL", level: 80 }
-    ]
-  },
-  {
-    title: "Software Engineering",
-    icon: Cpu,
-    color: "primary",
-    skills: [
-      { name: "Design Patterns", level: 85 },
-      { name: "Microservices", level: 80 },
-      { name: "System Architecture", level: 85 },
-      { name: "Performance Optimization", level: 80 },
-      { name: "Code Review", level: 90 },
-      { name: "Testing", level: 85 }
-    ]
-  },
-  {
-    title: "DevOps & Tools",
-    icon: GitBranch,
-    color: "secondary",
-    skills: [
-      { name: "Git/GitHub", level: 95 },
-      { name: "CI/CD", level: 80 },
-      { name: "Agile/SCRUM", level: 90 },
-      { name: "Project Management", level: 85 },
-      { name: "MS Office", level: 100 },
-      { name: "Collaboration Tools", level: 90 }
-    ]
-  },
-  {
-    title: "Security & Quality",
-    icon: Shield,
-    color: "accent",
-    skills: [
-      { name: "IT Security", level: 80 },
-      { name: "Risk Analysis", level: 70 },
-      { name: "Cryptography", level: 55 },
-      { name: "Attack Prevention", level: 70 },
-      { name: "Code Quality", level: 85 },
-      { name: "Documentation", level: 95 }
-    ]
-  }
-];
+const iconMap: Record<string, any> = {
+  Code, Database, Server, Shield, Cpu, GitBranch, Palette, Zap
+};
 
 export const Skills = () => {
+  const [skillCategories, setSkillCategories] = useState<any[]>([]);
+  const [skills, setSkills] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadSkillsData();
+  }, []);
+
+  const loadSkillsData = async () => {
+    try {
+      // Load skill categories
+      const { data: categoriesData } = await supabase
+        .from('skill_categories')
+        .select('*')
+        .order('sort_order');
+
+      // Load skills
+      const { data: skillsData } = await supabase
+        .from('skills')
+        .select('*')
+        .order('sort_order');
+
+      if (categoriesData && skillsData) {
+        // Group skills by category
+        const categoriesWithSkills = categoriesData.map(category => ({
+          ...category,
+          icon: iconMap[category.icon_name] || Code,
+          skills: skillsData.filter(skill => skill.category_id === category.id)
+        }));
+
+        setSkillCategories(categoriesWithSkills);
+        setSkills(skillsData);
+      }
+    } catch (error) {
+      console.error('Error loading skills:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getColorClasses = (color: string) => {
     const colorMap = {
       primary: {
@@ -123,8 +88,14 @@ export const Skills = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {skillCategories.map((category, categoryIndex) => {
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading skills...</p>
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {skillCategories.map((category, categoryIndex) => {
             const colors = getColorClasses(category.color);
             const Icon = category.icon;
             
@@ -168,7 +139,8 @@ export const Skills = () => {
               </Card>
             );
           })}
-        </div>
+          </div>
+        )}
 
         {/* Additional Skills Section */}
         <div className="mt-16 text-center">

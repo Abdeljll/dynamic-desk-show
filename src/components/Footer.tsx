@@ -79,7 +79,7 @@ export const Footer = () => {
                 variant="outline"
                 size="sm"
                 className="border-secondary/20 hover:bg-secondary/10 group"
-                onClick={() => {}}
+                onClick={() => window.open('https://github.com/Abdeljll', '_blank')}
               >
                 <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
               </Button>
@@ -87,7 +87,7 @@ export const Footer = () => {
                 variant="outline"
                 size="sm"
                 className="border-accent/20 hover:bg-accent/10 group"
-                onClick={() => {}}
+                onClick={() => window.open('https://www.linkedin.com/in/jalal-abdelaziz/', '_blank')}
               >
                 <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
               </Button>

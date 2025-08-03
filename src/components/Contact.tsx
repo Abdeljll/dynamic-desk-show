@@ -63,14 +63,14 @@ export const Contact = () => {
       icon: Github,
       title: "GitHub",
       description: "Check out my code",
-      action: () => window.open('#'),
+      action: () => window.open('https://github.com/Abdeljll', '_blank'),
       color: "primary"
     },
     {
       icon: Linkedin,
       title: "LinkedIn",
       description: "Professional network",
-      action: () => window.open('#'),
+      action: () => window.open('https://www.linkedin.com/in/jalal-abdelaziz/', '_blank'),
       color: "secondary"
     },
     {

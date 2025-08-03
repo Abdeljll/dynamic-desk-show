@@ -64,7 +64,7 @@ const skillCategories = [
       { name: "CI/CD", level: 80 },
       { name: "Agile/SCRUM", level: 90 },
       { name: "Project Management", level: 85 },
-      { name: "MS Office", level: 90 },
+      { name: "MS Office", level: 100 },
       { name: "Collaboration Tools", level: 90 }
     ]
   },
@@ -74,11 +74,11 @@ const skillCategories = [
     color: "accent",
     skills: [
       { name: "IT Security", level: 80 },
-      { name: "Risk Analysis", level: 75 },
-      { name: "Cryptography", level: 70 },
-      { name: "Attack Prevention", level: 75 },
+      { name: "Risk Analysis", level: 70 },
+      { name: "Cryptography", level: 55 },
+      { name: "Attack Prevention", level: 70 },
       { name: "Code Quality", level: 85 },
-      { name: "Documentation", level: 90 }
+      { name: "Documentation", level: 95 }
     ]
   }
 ];

@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Database, MessageSquare, ShoppingBag, FileCheck, MapPin, Calendar } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
+import { Github, Database, MessageSquare, ShoppingBag, FileCheck, MapPin, Calendar } from "lucide-react";
 
 const projects = [
   {
@@ -79,6 +80,14 @@ const projects = [
 ];
 
 export const Projects = () => {
+  const handleViewCode = () => {
+    toast({
+      title: "Code non disponible",
+      description: "J'attends que mon problème avec GitLab soit résolu car je n'ai plus accès à mon compte.",
+      duration: 4000,
+    });
+  };
+
   const getColorClasses = (color: string) => {
     const colorMap = {
       primary: {
@@ -178,14 +187,15 @@ export const Projects = () => {
                   </div>
                 </div>
 
-                <div className="flex gap-3">
-                  <Button variant="outline" size="sm" className={`${colors.border} ${colors.hover} flex-1`}>
+                <div className="flex justify-center">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={`${colors.border} ${colors.hover}`}
+                    onClick={handleViewCode}
+                  >
                     <Github className="w-4 h-4 mr-2" />
                     View Code
-                  </Button>
-                  <Button variant="outline" size="sm" className={`${colors.border} ${colors.hover} flex-1`}>
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Live Demo
                   </Button>
                 </div>
               </Card>

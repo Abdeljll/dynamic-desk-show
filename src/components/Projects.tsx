@@ -2,9 +2,28 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { Github, Database, MessageSquare, ShoppingBag, FileCheck, MapPin, Calendar } from "lucide-react";
+import { Github, Database, MessageSquare, ShoppingBag, FileCheck, MapPin, Calendar, Globe } from "lucide-react";
 
 const projects = [
+  {
+    id: 0,
+    title: "Personal Portfolio Website V1",
+    subtitle: "Personal project",
+    description: "Modern personal website built with cutting-edge technologies including Gatsby, JavaScript, HTML/CSS, Node.js and Yarn. Features automatic deployment on Netlify with GitHub integration and continuous learning approach.",
+    icon: Globe,
+    color: "secondary",
+    period: "March 2025 - Present",
+    location: "Montreal",
+    features: [
+      "Modern web technologies integration",
+      "Automatic deployment on Netlify",
+      "GitHub integration for updates",
+      "Optimized image management",
+      "Responsive design implementation",
+      "Continuous feature enhancement"
+    ],
+    technologies: ["Gatsby", "JavaScript", "HTML/CSS", "Node.js", "Yarn", "Netlify"]
+  },
   {
     id: 1,
     title: "Digital Library Management System",
@@ -82,8 +101,8 @@ const projects = [
 export const Projects = () => {
   const handleViewCode = () => {
     toast({
-      title: "Code non disponible",
-      description: "J'attends que mon problème avec GitLab soit résolu car je n'ai plus accès à mon compte.",
+      title: "Code Unavailable",
+      description: "Waiting for my GitLab issue to be resolved as I no longer have access to my account.",
       duration: 4000,
     });
   };

@@ -2,9 +2,23 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail, Phone, Sparkles } from "lucide-react";
+import { useTypewriter } from "@/hooks/useTypewriter";
 
 export const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  
+  // Typewriter effects
+  const { displayedText: nameText, isComplete: nameComplete } = useTypewriter("ABDELAZIZ JALAL", 120, 800);
+  const { displayedText: descriptionText, isComplete: descriptionComplete } = useTypewriter(
+    "Passionate about creating innovative solutions through code.",
+    50,
+    nameComplete ? 500 : 0
+  );
+  const { displayedText: educationText } = useTypewriter(
+    "Recent Computer Science & Software Engineering graduate from Université du Québec À Montréal.",
+    40,
+    descriptionComplete ? 300 : 0
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
@@ -36,14 +50,28 @@ export const Hero = () => {
           </div>
 
           {/* Name & Title */}
-          <div className="fade-in-up delay-200">
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-space-grotesk font-light mb-6 tracking-tight">
-              <span className="block text-foreground">ABDELAZIZ</span>
-              <span className="block text-gradient-primary font-medium">JALAL</span>
+          <div className="fade-in-up delay-200 mb-8">
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-space-grotesk font-light tracking-tight min-h-[200px] md:min-h-[300px]">
+              <span className="block text-foreground relative">
+                {nameText.split(' ')[0]}
+                {nameText.includes(' ') && nameText.split(' ')[0] && !nameComplete && (
+                  <span className="animate-pulse text-primary">|</span>
+                )}
+              </span>
+              {nameText.includes(' ') && (
+                <span className="block text-gradient-primary font-medium relative">
+                  {nameText.split(' ')[1] || ''}
+                  {nameText.split(' ')[1] && !nameComplete && (
+                    <span className="animate-pulse text-primary">|</span>
+                  )}
+                </span>
+              )}
             </h1>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-3 mb-8 fade-in-up delay-300">
+          <div className="flex flex-wrap justify-center gap-3 mb-8 fade-in-up delay-300 opacity-0" style={{ 
+            animation: nameComplete ? 'fadeInUp 0.6s ease-out 0.5s forwards' : 'none' 
+          }}>
             <Badge className="apple-button bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 px-4 py-2 text-sm font-medium">
               Software Engineer
             </Badge>
@@ -55,17 +83,28 @@ export const Hero = () => {
             </Badge>
           </div>
 
-          <div className="fade-in-up delay-400">
+          <div className="fade-in-up delay-400 min-h-[120px]">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-4xl mx-auto leading-relaxed font-light">
+              {descriptionText}
+              {descriptionText && !descriptionComplete && (
+                <span className="animate-pulse text-primary">|</span>
+              )}
+            </p>
             <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed font-light">
-              Passionate about creating innovative solutions through code.
-              <br />
-              <span className="text-foreground font-medium">Recent Computer Science & Software Engineering graduate</span> from
-              <span className="text-primary font-medium"> Université du Québec À Montréal</span>.
+              <span className="text-foreground font-medium">{educationText}</span>
+              {educationText && educationText.length < "Recent Computer Science & Software Engineering graduate from Université du Québec À Montréal.".length && (
+                <span className="animate-pulse text-primary">|</span>
+              )}
             </p>
           </div>
 
           {/* Contact Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-16 fade-in-up delay-500">
+          <div 
+            className="flex flex-wrap justify-center gap-4 mb-16 fade-in-up delay-500 opacity-0" 
+            style={{ 
+              animation: descriptionComplete ? 'fadeInUp 0.6s ease-out 1s forwards' : 'none' 
+            }}
+          >
             <Button 
               size="lg" 
               className="apple-button modern-button bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 font-medium animate-glow"
@@ -107,14 +146,24 @@ export const Hero = () => {
           </div>
 
           {/* Languages */}
-          <div className="fade-in-up delay-600">
+          <div 
+            className="fade-in-up delay-600 opacity-0" 
+            style={{ 
+              animation: descriptionComplete ? 'fadeInUp 0.6s ease-out 1.2s forwards' : 'none' 
+            }}
+          >
             <p className="text-muted-foreground mb-12 text-lg font-light">
               💬 Français • English
             </p>
           </div>
 
           {/* Scroll Indicator */}
-          <div className="fade-in-up delay-700">
+          <div 
+            className="fade-in-up delay-700 opacity-0" 
+            style={{ 
+              animation: descriptionComplete ? 'fadeInUp 0.6s ease-out 1.4s forwards' : 'none' 
+            }}
+          >
             <button
               onClick={() => scrollToSection('about')}
               className="group p-3 rounded-full apple-hover cursor-pointer"

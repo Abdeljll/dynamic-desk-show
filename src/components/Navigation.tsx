@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
 import { Menu, X, Download, Languages } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -20,6 +21,14 @@ export const Navigation = () => {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
+  };
+
+  const handleResumeClick = () => {
+    toast({
+      title: "CV Download",
+      description: "CV download will be available soon!",
+      duration: 3000,
+    });
   };
 
   const navItems = [
@@ -66,7 +75,7 @@ export const Navigation = () => {
               <Button 
                 variant="outline" 
                 className="apple-button modern-button border-border hover:bg-muted font-medium fade-in-up delay-700"
-                onClick={() => {}}
+                onClick={handleResumeClick}
               >
                 <Download className="w-4 h-4 mr-2 icon-bounce" />
                 Resume
@@ -105,7 +114,7 @@ export const Navigation = () => {
                   <Button 
                     variant="outline" 
                     className="w-full apple-button modern-button border-border hover:bg-muted font-medium"
-                    onClick={() => {}}
+                    onClick={handleResumeClick}
                   >
                     <Download className="w-4 h-4 mr-2 icon-bounce" />
                     Resume

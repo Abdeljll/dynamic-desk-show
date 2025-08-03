@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Download, Languages } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,16 +21,12 @@ export const Navigation = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'fr' : 'en');
-  };
-
   const navItems = [
-    { label: t('nav.about'), id: "about" },
-    { label: t('nav.projects'), id: "projects" },
-    { label: t('nav.skills'), id: "skills" },
-    { label: t('nav.experience'), id: "experience" },
-    { label: t('nav.contact'), id: "contact" }
+    { label: "About", id: "about" },
+    { label: "Projects", id: "projects" },
+    { label: "Skills", id: "skills" },
+    { label: "Experience", id: "experience" },
+    { label: "Contact", id: "contact" }
   ];
 
   return (
@@ -52,34 +47,25 @@ export const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-muted-foreground hover:text-primary transition-colors font-medium relative group"
+                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium relative group hover:scale-110"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all duration-300 group-hover:w-full" />
               </button>
             ))}
-            
-            {/* Language Toggle */}
-            <Button 
-              variant="outline" 
-              className="border-secondary/20 hover:bg-secondary/10 group"
-              onClick={toggleLanguage}
-            >
-              <Languages className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-              {language === 'en' ? 'FR' : 'EN'}
-            </Button>
 
             <Button 
               variant="outline" 
-              className="border-primary/20 hover:bg-primary/10 group"
+              className="border-primary/20 hover:bg-primary/10 group hover-lift hover-glow"
               onClick={() => {}}
             >
-              <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-              {t('nav.cv')}
+              <Download className="w-4 h-4 mr-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+              CV
             </Button>
           </div>
 
@@ -96,11 +82,12 @@ export const Navigation = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border/50">
             <div className="flex flex-col gap-4 pt-4">
-              {navItems.map((item) => (
+              {navItems.map((item, index) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-left text-muted-foreground hover:text-primary transition-colors font-medium py-2"
+                  className="text-left text-muted-foreground hover:text-primary transition-all duration-300 font-medium py-2 hover:translate-x-2"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {item.label}
                 </button>
@@ -109,20 +96,11 @@ export const Navigation = () => {
               <div className="flex gap-3 mt-2">
                 <Button 
                   variant="outline" 
-                  className="border-secondary/20 hover:bg-secondary/10 group"
-                  onClick={toggleLanguage}
-                >
-                  <Languages className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                  {language === 'en' ? 'FR' : 'EN'}
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  className="border-primary/20 hover:bg-primary/10 group"
+                  className="border-primary/20 hover:bg-primary/10 group hover-lift"
                   onClick={() => {}}
                 >
-                  <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                  {t('nav.cv')}
+                  <Download className="w-4 h-4 mr-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                  CV
                 </Button>
               </div>
             </div>

@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail, Phone } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
+
 
 export const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { t } = useLanguage();
 
   useEffect(() => {
     setIsVisible(true);
@@ -35,21 +34,21 @@ export const Hero = () => {
           </h1>
 
           <div className="flex flex-wrap justify-center gap-3 mb-8">
-            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-primary/10 text-primary border-primary/20">
-              {t('hero.software_engineer')}
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-primary/10 text-primary border-primary/20 hover-lift">
+              Software Engineer
             </Badge>
-            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-secondary/10 text-secondary border-secondary/20">
-              {t('hero.full_stack_developer')}
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-secondary/10 text-secondary border-secondary/20 hover-lift">
+              Full Stack Developer
             </Badge>
-            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-accent/10 text-accent border-accent/20">
-              {t('hero.graduate')}
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-accent/10 text-accent border-accent/20 hover-lift">
+              🎓 Computer Science Graduate
             </Badge>
           </div>
 
           <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            {t('hero.description')}
-            <span className="text-primary font-semibold"> {t('hero.graduate_from')}</span> {t('hero.university').includes('Université') ? 'de l\'' : 'from'}
-            <span className="text-secondary font-semibold"> {t('hero.university')}</span>.
+            Passionate about creating innovative solutions through code.
+            <span className="text-primary font-semibold"> Recent Computer Science & Software Engineering graduate</span> from
+            <span className="text-secondary font-semibold"> Université du Québec À Montréal</span>.
           </p>
 
           {/* Contact Buttons */}
@@ -57,11 +56,11 @@ export const Hero = () => {
             <Button 
               variant="default" 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground hover-lift group"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground hover-lift group animate-pulse-glow"
               onClick={() => window.open('mailto:abdelazizjalal7@icloud.com')}
             >
               <Mail className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              {t('hero.contact_me')}
+              Contact Me
             </Button>
             
             <Button 
@@ -77,25 +76,27 @@ export const Hero = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-secondary/20 hover:bg-secondary/10 hover-lift group"
+              className="border-secondary/20 hover:bg-secondary/10 hover-lift group hover-glow"
+              onClick={() => window.open('https://github.com/Abdeljll', '_blank')}
             >
-              <Github className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              <Github className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform group-hover:rotate-12" />
               GitHub
             </Button>
 
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-accent/20 hover:bg-accent/10 hover-lift group"
+              className="border-accent/20 hover:bg-accent/10 hover-lift group hover-glow"
+              onClick={() => window.open('https://www.linkedin.com/in/jalal-abdelaziz/', '_blank')}
             >
-              <Linkedin className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              <Linkedin className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform group-hover:rotate-12" />
               LinkedIn
             </Button>
           </div>
 
           {/* Languages */}
-          <p className="text-muted-foreground mb-12">
-            {t('hero.languages')}
+          <p className="text-muted-foreground mb-12 animate-bounce">
+            💬 French • English
           </p>
 
           {/* Scroll Indicator */}

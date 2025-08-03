@@ -10,14 +10,14 @@ export const Hero = () => {
   // Typewriter effects
   const { displayedText: nameText, isComplete: nameComplete } = useTypewriter("ABDELAZIZ JALAL", 120, 800);
   const { displayedText: descriptionText, isComplete: descriptionComplete } = useTypewriter(
-    "Passionate about creating innovative solutions through code.",
+    nameComplete ? "Passionate about creating innovative solutions through code." : "",
     50,
-    nameComplete ? 500 : 0
+    nameComplete ? 500 : 999999
   );
   const { displayedText: educationText } = useTypewriter(
-    "Recent Computer Science & Software Engineering graduate from Université du Québec À Montréal.",
+    descriptionComplete ? "Recent Computer Science & Software Engineering graduate from Université du Québec À Montréal." : "",
     40,
-    descriptionComplete ? 300 : 0
+    descriptionComplete ? 300 : 999999
   );
 
   useEffect(() => {

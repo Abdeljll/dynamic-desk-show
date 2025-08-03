@@ -30,9 +30,9 @@ export const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-background/80 backdrop-blur-lg border-b border-border/50' 
+        ? 'glass-bg border-b border-border/20' 
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-6 py-4">
@@ -40,39 +40,39 @@ export const Navigation = () => {
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-2xl font-space-grotesk font-bold text-gradient-primary hover:scale-105 transition-transform"
+            className="text-2xl font-space-grotesk font-medium text-gradient-primary apple-button"
           >
             AJ
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navItems.map((item, index) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium relative group hover:scale-110"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="text-muted-foreground hover:text-foreground transition-all duration-300 font-medium relative group px-3 py-2 rounded-lg apple-hover fade-in-up"
+                style={{ animationDelay: `${(index + 1) * 100}ms` }}
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-secondary transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full rounded-full" />
               </button>
             ))}
 
             <Button 
               variant="outline" 
-              className="border-primary/20 hover:bg-primary/10 group hover-lift hover-glow"
+              className="apple-button modern-button border-border hover:bg-muted ml-4 font-medium fade-in-up delay-700"
               onClick={() => {}}
             >
-              <Download className="w-4 h-4 mr-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-              CV
+              <Download className="w-4 h-4 mr-2 icon-bounce" />
+              Resume
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 text-foreground hover:text-primary apple-hover rounded-lg"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -80,28 +80,30 @@ export const Navigation = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-border/50">
-            <div className="flex flex-col gap-4 pt-4">
-              {navItems.map((item, index) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-left text-muted-foreground hover:text-primary transition-all duration-300 font-medium py-2 hover:translate-x-2"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {item.label}
-                </button>
-              ))}
-              
-              <div className="flex gap-3 mt-2">
-                <Button 
-                  variant="outline" 
-                  className="border-primary/20 hover:bg-primary/10 group hover-lift"
-                  onClick={() => {}}
-                >
-                  <Download className="w-4 h-4 mr-2 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                  CV
-                </Button>
+          <div className="md:hidden mt-4 pb-4 border-t border-border/20">
+            <div className="apple-card mt-4 p-4">
+              <div className="flex flex-col gap-2">
+                {navItems.map((item, index) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-left text-muted-foreground hover:text-foreground apple-hover font-medium py-3 px-4 rounded-lg fade-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                
+                <div className="mt-4 pt-4 border-t border-border/20">
+                  <Button 
+                    variant="outline" 
+                    className="w-full apple-button modern-button border-border hover:bg-muted font-medium"
+                    onClick={() => {}}
+                  >
+                    <Download className="w-4 h-4 mr-2 icon-bounce" />
+                    Resume
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

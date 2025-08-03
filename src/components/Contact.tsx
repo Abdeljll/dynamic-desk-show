@@ -14,17 +14,34 @@ export const Contact = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Create mailto link with form data
-    const mailtoLink = `mailto:abdelazizjalal7@icloud.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`;
-    
-    window.location.href = mailtoLink;
-    toast.success("Email client opened with your message!");
-    
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    // Basic form validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      // Create mailto link with form data
+      const mailtoLink = `mailto:abdelazizjalal7@icloud.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.name} (${formData.email})\n\n${formData.message}`)}`;
+      
+      window.open(mailtoLink, '_blank');
+      toast.success("Email client opened! Your message is ready to send.");
+      
+      // Reset form after successful submission
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -107,22 +124,22 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 animated-bg">
+    <section id="contact" className="py-20 px-6 section-bg">
       <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-space-grotesk font-bold mb-6">
-            <span className="text-gradient-hero">Get In Touch</span>
+        <div className="text-center mb-16 fade-in-up">
+          <h2 className="text-4xl md:text-6xl font-space-grotesk font-light mb-6 tracking-tight">
+            <span className="text-gradient-primary">Get In Touch</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
             Ready to collaborate? Let's discuss opportunities and create something amazing together!
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <Card className="p-8 bg-card border-primary/20 hover-glow">
-              <h3 className="text-2xl font-space-grotesk font-bold text-foreground mb-6">
+          <div className="lg:col-span-2 fade-in-up delay-200">
+            <div className="apple-card p-8">
+              <h3 className="text-2xl font-space-grotesk font-medium text-foreground mb-6">
                 Send a Message
               </h3>
               
@@ -138,7 +155,7 @@ export const Contact = () => {
                       onChange={handleChange}
                       placeholder="Your full name"
                       required
-                      className="bg-background/50 border-border/50 focus:border-primary"
+                      className="apple-card border-border focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
                     />
                   </div>
                   <div>
@@ -152,7 +169,7 @@ export const Contact = () => {
                       onChange={handleChange}
                       placeholder="your.email@example.com"
                       required
-                      className="bg-background/50 border-border/50 focus:border-primary"
+                      className="apple-card border-border focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
                     />
                   </div>
                 </div>
@@ -167,7 +184,7 @@ export const Contact = () => {
                     onChange={handleChange}
                     placeholder="What's this about?"
                     required
-                    className="bg-background/50 border-border/50 focus:border-primary"
+                    className="apple-card border-border focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all"
                   />
                 </div>
                 
@@ -182,27 +199,27 @@ export const Contact = () => {
                     placeholder="Tell me about your project or opportunity..."
                     rows={6}
                     required
-                    className="bg-background/50 border-border/50 focus:border-primary resize-none"
+                    className="apple-card border-border focus:border-primary focus:ring-1 focus:ring-primary/20 resize-none transition-all min-h-[120px]"
                   />
                 </div>
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground hover-lift group"
+                  className="w-full apple-button modern-button bg-primary hover:bg-primary/90 text-primary-foreground group font-medium py-6"
                   size="lg"
                 >
-                  <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
+                  <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform icon-bounce" />
                   Send Message
                 </Button>
               </form>
-            </Card>
+            </div>
           </div>
 
           {/* Contact Info & Social */}
-          <div className="space-y-6">
+          <div className="space-y-6 fade-in-up delay-300">
             {/* Contact Information */}
-            <Card className="p-6 bg-card border-secondary/20">
-              <h3 className="text-xl font-space-grotesk font-bold text-foreground mb-6">
+            <div className="apple-card p-6">
+              <h3 className="text-xl font-space-grotesk font-medium text-foreground mb-6">
                 Contact Information
               </h3>
               
@@ -215,24 +232,24 @@ export const Contact = () => {
                     <div
                       key={index}
                       onClick={info.action}
-                      className={`flex items-center gap-4 p-4 rounded-lg ${colors.bg} ${colors.hover} transition-colors cursor-pointer group`}
+                      className={`flex items-center gap-4 p-4 rounded-xl ${colors.bg} ${colors.hover} apple-hover cursor-pointer group transition-all`}
                     >
-                      <div className={`p-2 ${colors.bg} rounded-lg`}>
+                      <div className={`p-3 ${colors.bg} rounded-xl icon-bounce`}>
                         <Icon className={`w-5 h-5 ${colors.text}`} />
                       </div>
                       <div>
                         <p className="font-medium text-foreground">{info.title}</p>
-                        <p className={`text-sm ${colors.text}`}>{info.value}</p>
+                        <p className={`text-sm ${colors.text} font-light`}>{info.value}</p>
                       </div>
                     </div>
                   );
                 })}
               </div>
-            </Card>
+            </div>
 
             {/* Social Links */}
-            <Card className="p-6 bg-card border-accent/20">
-              <h3 className="text-xl font-space-grotesk font-bold text-foreground mb-6">
+            <div className="apple-card p-6">
+              <h3 className="text-xl font-space-grotesk font-medium text-foreground mb-6">
                 Connect & Resources
               </h3>
               
@@ -245,41 +262,41 @@ export const Contact = () => {
                     <button
                       key={index}
                       onClick={link.action}
-                      className={`w-full flex items-center gap-4 p-4 rounded-lg ${colors.bg} ${colors.hover} transition-colors hover-lift group text-left`}
+                      className={`w-full flex items-center gap-4 p-4 rounded-xl ${colors.bg} ${colors.hover} apple-hover group text-left transition-all`}
                     >
-                      <div className={`p-2 ${colors.bg} rounded-lg`}>
+                      <div className={`p-3 ${colors.bg} rounded-xl icon-bounce`}>
                         <Icon className={`w-5 h-5 ${colors.text}`} />
                       </div>
                       <div>
                         <p className="font-medium text-foreground">{link.title}</p>
-                        <p className="text-sm text-muted-foreground">{link.description}</p>
+                        <p className="text-sm text-muted-foreground font-light">{link.description}</p>
                       </div>
                     </button>
                   );
                 })}
               </div>
-            </Card>
+            </div>
 
             {/* Quick Info */}
-            <Card className="p-6 bg-card border-primary/20">
-              <h3 className="text-lg font-space-grotesk font-bold text-foreground mb-4">
+            <div className="apple-card p-6">
+              <h3 className="text-lg font-space-grotesk font-medium text-foreground mb-4">
                 Quick Info
               </h3>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Response Time:</span>
+              <div className="space-y-4 text-sm">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground font-light">Response Time:</span>
                   <span className="text-primary font-medium">24-48 hours</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Availability:</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground font-light">Availability:</span>
                   <span className="text-secondary font-medium">Open to opportunities</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Languages:</span>
-                  <span className="text-accent font-medium">French, English</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground font-light">Languages:</span>
+                  <span className="text-accent font-medium">Français, English</span>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>

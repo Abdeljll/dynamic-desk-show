@@ -111,9 +111,6 @@ export const Footer = () => {
               <Badge variant="outline" className="border-secondary/20 text-secondary text-xs">
                 Tailwind CSS
               </Badge>
-              <Badge variant="outline" className="border-accent/20 text-accent text-xs">
-                Lovable
-              </Badge>
             </div>
           </div>
         </div>

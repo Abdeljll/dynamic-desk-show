@@ -99,12 +99,17 @@ const projects = [
 ];
 
 export const Projects = () => {
-  const handleViewCode = () => {
-    toast({
-      title: "Code Unavailable",
-      description: "Waiting for my GitLab issue to be resolved as I no longer have access to my account.",
-      duration: 4000,
-    });
+  const handleViewCode = (projectId: number) => {
+    if (projectId === 0) {
+      // Personal Portfolio Website V1
+      window.open('https://abdelazizjalal.netlify.app', '_blank');
+    } else {
+      toast({
+        title: "Code Unavailable",
+        description: "Waiting for my GitLab issue to be resolved as I no longer have access to my account.",
+        duration: 4000,
+      });
+    }
   };
 
   const getColorClasses = (color: string) => {
@@ -151,7 +156,7 @@ export const Projects = () => {
             return (
               <Card 
                 key={project.id}
-                className={`p-8 bg-card ${colors.border} hover-lift hover-glow group reveal-up delay-${index * 100}`}
+                className={`p-8 bg-card ${colors.border} hover-lift hover-glow group reveal-up delay-${index * 100} flex flex-col h-full`}
               >
                 <div className="flex items-start gap-4 mb-6">
                   <div className={`p-4 ${colors.bg} rounded-xl ${colors.hover} transition-colors`}>
@@ -181,7 +186,7 @@ export const Projects = () => {
                   {project.description}
                 </p>
 
-                <div className="space-y-4 mb-6">
+                <div className="space-y-4 mb-6 flex-grow">
                   <div>
                     <h4 className="font-semibold text-foreground mb-3">Key Features</h4>
                     <div className="grid grid-cols-1 gap-2">
@@ -206,15 +211,15 @@ export const Projects = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-auto">
                   <Button 
                     variant="outline" 
                     size="sm" 
                     className={`${colors.border} ${colors.hover}`}
-                    onClick={handleViewCode}
+                    onClick={() => handleViewCode(project.id)}
                   >
                     <Github className="w-4 h-4 mr-2" />
-                    View Code
+                    {project.id === 0 ? "View Live Site" : "View Code"}
                   </Button>
                 </div>
               </Card>

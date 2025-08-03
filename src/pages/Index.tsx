@@ -9,7 +9,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { AdminLogin } from "@/components/AdminLogin";
 import { AdminPanel } from "@/components/AdminPanel";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [isAdmin, setIsAdmin] = useState(false);

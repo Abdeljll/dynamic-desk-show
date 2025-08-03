@@ -80,6 +80,9 @@ export const About = () => {
                     <MapPin className="w-3 h-3 mr-1" />
                     Casablanca, Morocco
                   </Badge>
+                  <Badge className="bg-accent/10 text-accent border-accent/20">
+                    🎓 Graduate
+                  </Badge>
                 </div>
               </div>
             </div>

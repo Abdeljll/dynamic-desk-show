@@ -32,7 +32,7 @@ export const About = () => {
                 <div className="flex flex-wrap gap-2 mb-4">
                   <Badge className="bg-primary/10 text-primary border-primary/20">
                     <Calendar className="w-3 h-3 mr-1" />
-                    September 2021 - May 2025 (Completed)
+                    September 2021 - May 2025
                   </Badge>
                   <Badge className="bg-secondary/10 text-secondary border-secondary/20">
                     <MapPin className="w-3 h-3 mr-1" />

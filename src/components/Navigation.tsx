@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Download, Languages } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 
 export const Navigation = () => {
@@ -59,14 +60,18 @@ export const Navigation = () => {
               </button>
             ))}
 
-            <Button 
-              variant="outline" 
-              className="apple-button modern-button border-border hover:bg-muted ml-4 font-medium fade-in-up delay-700"
-              onClick={() => {}}
-            >
-              <Download className="w-4 h-4 mr-2 icon-bounce" />
-              Resume
-            </Button>
+            <div className="flex items-center gap-3 ml-4">
+              <ThemeToggle />
+              
+              <Button 
+                variant="outline" 
+                className="apple-button modern-button border-border hover:bg-muted font-medium fade-in-up delay-700"
+                onClick={() => {}}
+              >
+                <Download className="w-4 h-4 mr-2 icon-bounce" />
+                Resume
+              </Button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -94,7 +99,9 @@ export const Navigation = () => {
                   </button>
                 ))}
                 
-                <div className="mt-4 pt-4 border-t border-border/20">
+                <div className="mt-4 pt-4 border-t border-border/20 flex flex-col gap-3">
+                  <ThemeToggle />
+                  
                   <Button 
                     variant="outline" 
                     className="w-full apple-button modern-button border-border hover:bg-muted font-medium"

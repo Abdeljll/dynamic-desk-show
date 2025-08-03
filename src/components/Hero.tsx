@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setIsVisible(true);
@@ -34,20 +36,20 @@ export const Hero = () => {
 
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-primary/10 text-primary border-primary/20">
-              Software Engineer
+              {t('hero.software_engineer')}
             </Badge>
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-secondary/10 text-secondary border-secondary/20">
-              Full Stack Developer
+              {t('hero.full_stack_developer')}
             </Badge>
             <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-accent/10 text-accent border-accent/20">
-              Computer Science Student
+              {t('hero.graduate')}
             </Badge>
           </div>
 
           <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            Passionate about creating innovative solutions through code. 
-            Currently pursuing Computer Science & Software Engineering at 
-            <span className="text-primary font-semibold"> Université du Québec À Montréal</span>.
+            {t('hero.description')}
+            <span className="text-primary font-semibold"> {t('hero.graduate_from')}</span> {t('hero.university').includes('Université') ? 'de l\'' : 'from'}
+            <span className="text-secondary font-semibold"> {t('hero.university')}</span>.
           </p>
 
           {/* Contact Buttons */}
@@ -59,7 +61,7 @@ export const Hero = () => {
               onClick={() => window.open('mailto:abdelazizjalal7@icloud.com')}
             >
               <Mail className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              Contact Me
+              {t('hero.contact_me')}
             </Button>
             
             <Button 
@@ -93,7 +95,7 @@ export const Hero = () => {
 
           {/* Languages */}
           <p className="text-muted-foreground mb-12">
-            💬 <span className="text-primary">French</span> • <span className="text-secondary">English</span>
+            {t('hero.languages')}
           </p>
 
           {/* Scroll Indicator */}

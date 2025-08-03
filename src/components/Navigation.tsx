@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Download, Languages } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,12 +22,16 @@ export const Navigation = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'fr' : 'en');
+  };
+
   const navItems = [
-    { label: "About", id: "about" },
-    { label: "Projects", id: "projects" },
-    { label: "Skills", id: "skills" },
-    { label: "Experience", id: "experience" },
-    { label: "Contact", id: "contact" }
+    { label: t('nav.about'), id: "about" },
+    { label: t('nav.projects'), id: "projects" },
+    { label: t('nav.skills'), id: "skills" },
+    { label: t('nav.experience'), id: "experience" },
+    { label: t('nav.contact'), id: "contact" }
   ];
 
   return (
@@ -57,13 +63,23 @@ export const Navigation = () => {
               </button>
             ))}
             
+            {/* Language Toggle */}
+            <Button 
+              variant="outline" 
+              className="border-secondary/20 hover:bg-secondary/10 group"
+              onClick={toggleLanguage}
+            >
+              <Languages className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+              {language === 'en' ? 'FR' : 'EN'}
+            </Button>
+
             <Button 
               variant="outline" 
               className="border-primary/20 hover:bg-primary/10 group"
               onClick={() => {}}
             >
               <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-              CV
+              {t('nav.cv')}
             </Button>
           </div>
 
@@ -90,14 +106,25 @@ export const Navigation = () => {
                 </button>
               ))}
               
-              <Button 
-                variant="outline" 
-                className="border-primary/20 hover:bg-primary/10 w-fit group mt-2"
-                onClick={() => {}}
-              >
-                <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                Download CV
-              </Button>
+              <div className="flex gap-3 mt-2">
+                <Button 
+                  variant="outline" 
+                  className="border-secondary/20 hover:bg-secondary/10 group"
+                  onClick={toggleLanguage}
+                >
+                  <Languages className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                  {language === 'en' ? 'FR' : 'EN'}
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="border-primary/20 hover:bg-primary/10 group"
+                  onClick={() => {}}
+                >
+                  <Download className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                  {t('nav.cv')}
+                </Button>
+              </div>
             </div>
           </div>
         )}
